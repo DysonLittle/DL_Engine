@@ -2,6 +2,19 @@
 #include "Vector3.h"
 #include <cmath>
 
+Quaternion::Quaternion(float x, float y, float z, float w)
+{
+}
+
+Quaternion::Quaternion(Vector3 eulerRotation)
+{
+}
+
+Vector3 Quaternion::getXYZ()
+{
+	return Vector3::ZERO;
+}
+
 Quaternion Quaternion::inverse()
 {
 	return Quaternion(-this->x, -this->y, -this->z, this->w);
@@ -9,7 +22,7 @@ Quaternion Quaternion::inverse()
 
 Vector3 Quaternion::operator*(const Vector3& rhs)
 {
-
+	return Vector3::ZERO; //TODO
 }
 
 Quaternion Quaternion::operator*(const Quaternion& rhs)
@@ -40,4 +53,8 @@ Quaternion Quaternion::eulerAngle(Vector3 eulerAngle)
 	float outZ = cosX * cosY * sinZ - sinX * sinY * cosZ;
 
 	return Quaternion(outX, outY, outZ, outW);
+}
+
+void Quaternion::normalize()
+{
 }

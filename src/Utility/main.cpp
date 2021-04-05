@@ -1,13 +1,67 @@
+#define GLFW_INCLUDE_VULKAN
+#include <GLFW/glfw3.h>
+
 #include <iostream>
-#include "Math/Vector2.h"
-#include "Math/Vector3.h"
-#include <vulkan/vulkan.hpp>
+#include <stdexcept>
+#include <cstdlib>
 
-int main()
-{
-	std::cout << "Hello world!" << std::endl;
+const uint32_t WIDTH = 800;
+const uint32_t HEIGHT = 600;
 
-	new Vector2(1, 1);
+class HelloTriangleApplication {
+public:
+    void run() {
+        initWindow();
+        initVulkan();
+        mainLoop();
+        cleanup();
+    }
 
-	return 0;
+private:
+    void initWindow()
+    {
+        glfwInit();
+        glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+        glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+        window = glfwCreateWindow(800, 600, "Vulkan", nullptr, nullptr);
+    }
+
+    void initVulkan() {
+        createInstance();
+    }
+
+    void createInstance()
+    {
+
+    }
+
+    void mainLoop() {
+        while (!glfwWindowShouldClose(window))
+        {
+            glfwPollEvents();
+        }
+    }
+
+    void cleanup() {
+        glfwDestroyWindow(window);
+
+        glfwTerminate();
+    }
+
+    GLFWwindow* window;
+    VkInstance instance;
+};
+
+int main() {
+    HelloTriangleApplication app;
+
+    try {
+        app.run();
+    }
+    catch (const std::exception& e) {
+        std::cerr << e.what() << std::endl;
+        return EXIT_FAILURE;
+    }
+
+    return EXIT_SUCCESS;
 }

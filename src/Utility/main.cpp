@@ -10,6 +10,7 @@
 #include <cstdlib>
 #include <vector>
 #include <optional>
+#include <map>
 
 const uint32_t WIDTH = 800;
 const uint32_t HEIGHT = 600;
@@ -27,6 +28,11 @@ const bool enableValidationLayers = true;
 struct QueueFamilyIndices
 {
     std::optional<uint32_t> graphicsFamily;
+
+    bool isComplete()
+    {
+        return graphicsFamily.has_value();
+    }
 };
 
 class HelloTriangleApplication {
@@ -44,7 +50,7 @@ private:
         glfwInit();
         glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
         glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-        window = glfwCreateWindow(800, 600, "Vulkan", nullptr, nullptr);
+        window = glfwCreateWindow(WIDTH, HEIGHT, "Vulkan", nullptr, nullptr);
     }
 
     void initVulkan() {
@@ -68,29 +74,54 @@ private:
         vkEnumeratePhysicalDevices(instance, &deviceCount, devices.data());
 
         //evaluate graphics cards
+        std::multimap<int, VkPhysicalDevice> canidates;
+
         for (const auto& device : devices)
         {
-            if (isDeviceSuitable(device))
-            {
-                physicalDevice = device;
-                break;
-            }
+            int score = ratePhysicalDevice(device);
+            canidates.insert(std::pair<int, VkPhysicalDevice>(score, device));
         }
 
-        if (physicalDevice == VK_NULL_HANDLE)
+        if (canidates.rbegin()->first > 0)
+        {
+            physicalDevice = canidates.rbegin()->second;
+        }
+        else
         {
             throw std::runtime_error("failed to find a suitable GPU!");
         }
     }
 
-    bool isDeviceSuitable(VkPhysicalDevice device)
+    int ratePhysicalDevice(VkPhysicalDevice device)
     {
-        //VkPhysicalDeviceProperties deviceProperties;
-        //vkGetPhysicalDeviceProperties(device, &deviceProperties);
-        //VkPhysicalDeviceFeatures deviceFeatures;
-        //vkGetPhysicalDeviceFeatures(device, &deviceFeatures);
+        VkPhysicalDeviceProperties deviceProperties;
+        vkGetPhysicalDeviceProperties(device, &deviceProperties);
+        VkPhysicalDeviceFeatures deviceFeatures;
+        vkGetPhysicalDeviceFeatures(device, &deviceFeatures);
 
-        return true;
+        int score = 0;
+
+        if (deviceProperties.deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU)
+        {
+            score += 1000;
+        }
+
+        score += deviceProperties.limits.maxImageDimension2D;
+
+
+        if (!deviceFeatures.geometryShader)
+        {
+            return 0; //cannot use graphics card without geometry shader!
+        }
+
+        QueueFamilyIndices indices = findQueueFamilies(device);
+
+        if (!indices.isComplete())
+        {
+            return 0; //cannot use graphics card
+        }
+
+        return score;
     }
 
     QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device)
@@ -109,6 +140,11 @@ private:
             if (queueFamily.queueFlags & VK_QUEUE_GRAPHICS_BIT)
             {
                 indices.graphicsFamily = index;
+            }
+
+            if (indices.isComplete())
+            {
+                break;
             }
 
             index++;
@@ -143,9 +179,19 @@ private:
         const char** glfwExtensions;
 
         glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
+
         createInfo.enabledExtensionCount = glfwExtensionCount;
         createInfo.ppEnabledExtensionNames = glfwExtensions;
-        createInfo.enabledLayerCount = 0;
+
+        if (enableValidationLayers)
+        {
+            createInfo.enabledLayerCount = static_cast<uint32_t>(validationLayers.size());
+            createInfo.ppEnabledLayerNames = validationLayers.data();
+        }
+        else
+        {
+            createInfo.enabledLayerCount = 0;
+        }
 
         if (vkCreateInstance(&createInfo, nullptr, &instance) != VK_SUCCESS)
         {
@@ -215,6 +261,7 @@ private:
 
     GLFWwindow* window;
     VkInstance instance;
+    VkDevice device;
 };
 
 int main() {

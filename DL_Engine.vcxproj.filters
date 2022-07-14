@@ -25,6 +25,9 @@
     <Filter Include="Source Files\Utility\Math">
       <UniqueIdentifier>{c0190124-bb9a-4cf1-8259-79b8f0d87d23}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Shaders">
+      <UniqueIdentifier>{713d9aa9-d10d-4a75-89b8-737e0046effa}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Utility\main.cpp">
@@ -50,5 +53,16 @@
     <ClInclude Include="src\Utility\Math\Vector3.h">
       <Filter>Header Files\Utility\Math</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\Shaders\hello_triangle_compile.bat">
+      <Filter>Source Files\Shaders</Filter>
+    </None>
+    <None Include="src\Shaders\HelloTriangleFragment1.frag">
+      <Filter>Source Files\Shaders</Filter>
+    </None>
+    <None Include="src\Shaders\HelloTriangleVertex1.vert">
+      <Filter>Source Files\Shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

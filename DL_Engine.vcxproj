@@ -29,6 +29,11 @@
     <ClInclude Include="src\Utility\Math\Vector2.h" />
     <ClInclude Include="src\Utility\Math\Vector3.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="src\Shaders\HelloTriangleFragment1.frag" />
+    <None Include="src\Shaders\HelloTriangleVertex1.vert" />
+    <None Include="src\Shaders\hello_triangle_compile.bat" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{8E4E9F87-456F-4813-9411-A7CB35A4C872}</ProjectGuid>

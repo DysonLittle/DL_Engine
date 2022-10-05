@@ -96,7 +96,7 @@ Vector3 Vector3::operator+(const Vector3& rhs)
 /// <returns>Resulting Vector3.</returns>
 Vector3 Vector3::operator-(const Vector3& rhs)
 {
-	return Vector3(this->x + rhs.x, this->y + rhs.y, this->z + rhs.z);
+	return Vector3(this->x - rhs.x, this->y - rhs.y, this->z - rhs.z);
 }
 
 /// <summary>
@@ -106,7 +106,7 @@ Vector3 Vector3::operator-(const Vector3& rhs)
 /// <returns>Resulting Vector3.</returns>
 Vector3 Vector3::operator*(const Vector3& rhs)
 {
-	return Vector3(this->x + rhs.x, this->y + rhs.y, this->z + rhs.z);
+	return Vector3(this->x * rhs.x, this->y * rhs.y, this->z * rhs.z);
 }
 
 /// <summary>
@@ -116,7 +116,7 @@ Vector3 Vector3::operator*(const Vector3& rhs)
 /// <returns>Resulting Vector3.</returns>
 Vector3 Vector3::operator/(const Vector3& rhs)
 {
-	return Vector3(this->x + rhs.x, this->y + rhs.y, this->z + rhs.z);
+	return Vector3(this->x / rhs.x, this->y / rhs.y, this->z / rhs.z);
 }
 
 /// <summary>

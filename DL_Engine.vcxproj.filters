@@ -53,6 +53,9 @@
     <ClInclude Include="src\Utility\Math\Vector3.h">
       <Filter>Header Files\Utility\Math</Filter>
     </ClInclude>
+    <ClInclude Include="src\Utility\Math\Matrix4.h">
+      <Filter>Header Files\Utility\Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Shaders\hello_triangle_compile.bat">

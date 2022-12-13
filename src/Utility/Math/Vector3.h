@@ -4,6 +4,9 @@ struct Vector2; // forward declaration for implicit conversion operator overload
 
 struct Vector3
 {
+	// data
+	float x, y, z;
+
 	// constructors
 	Vector3(float x, float y, float z);
 	Vector3(const Vector3& vec); // copy constructor
@@ -25,9 +28,6 @@ struct Vector3
 	// static operators
 	static float dot(const Vector3& lhs, const Vector3& rhs);
 	static Vector3 cross(const Vector3& lhs, const Vector3& rhs);
-
-	// data
-	float x, y, z;
 
 	// static values
 	static Vector3 ZERO, UP, DOWN, LEFT, RIGHT, FORWARDS, BACKWARDS;

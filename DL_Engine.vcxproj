@@ -25,6 +25,7 @@
     <ClCompile Include="src\Utility\Math\Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Utility\Math\Matrix4.h" />
     <ClInclude Include="src\Utility\Math\Quaternion.h" />
     <ClInclude Include="src\Utility\Math\Vector2.h" />
     <ClInclude Include="src\Utility\Math\Vector3.h" />

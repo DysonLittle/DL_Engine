@@ -40,12 +40,12 @@ Quaternion Quaternion::operator*(const Quaternion& rhs)
 
 Quaternion Quaternion::eulerAngle(Vector3 eulerAngle)
 {
-	float cosX = cos(eulerAngle.x * 0.5f);
-	float cosY = cos(eulerAngle.y * 0.5f);
-	float cosZ = cos(eulerAngle.z * 0.5f);
-	float sinX = sin(eulerAngle.x * 0.5f);
-	float sinY = sin(eulerAngle.y * 0.5f);
-	float sinZ = sin(eulerAngle.z * 0.5f);
+	float cosX = cos(eulerAngle[0] * 0.5f);
+	float cosY = cos(eulerAngle[1] * 0.5f);
+	float cosZ = cos(eulerAngle[2] * 0.5f);
+	float sinX = sin(eulerAngle[0] * 0.5f);
+	float sinY = sin(eulerAngle[1] * 0.5f);
+	float sinZ = sin(eulerAngle[2] * 0.5f);
 
 	float outW = cosX * cosY * cosZ + sinX * sinY * sinZ;
 	float outX = sinX * cosY * cosZ - cosX * sinY * sinZ;

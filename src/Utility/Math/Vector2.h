@@ -4,8 +4,15 @@ struct Vector3; // forward declaration for implicit conversion operator overload
 
 struct Vector2
 {
+	// data
+private:
+	float vec[2];
+
+public:
 	// constructors
-	Vector2(float x, float y);
+	Vector2(float x, float y) : vec{ x, y } {}
+	Vector2();
+	Vector2(float vec[2]);
 	Vector2(const Vector2& vec); // copy constructor
 
 	// member functions
@@ -20,13 +27,11 @@ struct Vector2
 	Vector2 operator*(const Vector2& rhs);
 	Vector2 operator/(const Vector2& rhs);
 	bool operator==(const Vector2& rhs);
+	float operator[](int index) const;
 	operator Vector3() const;
 
 	// static operators
 	static float dot(const Vector2& lhs, const Vector2& rhs);
-
-	// data
-	float x, y;
 
 	// static values
 	static Vector2 ZERO, UP, DOWN, LEFT, RIGHT;

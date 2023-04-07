@@ -42,6 +42,12 @@
     <ClCompile Include="src\Utility\Math\Vector3.cpp">
       <Filter>Source Files\Utility\Math</Filter>
     </ClCompile>
+    <ClCompile Include="src\Utility\Math\Matrix4.cpp">
+      <Filter>Source Files\Utility\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utility\Math\Vector4.cpp">
+      <Filter>Source Files\Utility\Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Utility\Math\Quaternion.h">
@@ -54,6 +60,12 @@
       <Filter>Header Files\Utility\Math</Filter>
     </ClInclude>
     <ClInclude Include="src\Utility\Math\Matrix4.h">
+      <Filter>Header Files\Utility\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utility\Math\Pi.h">
+      <Filter>Header Files\Utility\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utility\Math\Vector4.h">
       <Filter>Header Files\Utility\Math</Filter>
     </ClInclude>
   </ItemGroup>

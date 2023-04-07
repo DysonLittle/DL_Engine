@@ -20,15 +20,19 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Utility\main.cpp" />
+    <ClCompile Include="src\Utility\Math\Matrix4.cpp" />
     <ClCompile Include="src\Utility\Math\Quaternion.cpp" />
     <ClCompile Include="src\Utility\Math\Vector2.cpp" />
     <ClCompile Include="src\Utility\Math\Vector3.cpp" />
+    <ClCompile Include="src\Utility\Math\Vector4.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Utility\Math\Matrix4.h" />
+    <ClInclude Include="src\Utility\Math\Pi.h" />
     <ClInclude Include="src\Utility\Math\Quaternion.h" />
     <ClInclude Include="src\Utility\Math\Vector2.h" />
     <ClInclude Include="src\Utility\Math\Vector3.h" />
+    <ClInclude Include="src\Utility\Math\Vector4.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Shaders\HelloTriangleFragment1.frag" />

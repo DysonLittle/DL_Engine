@@ -12,6 +12,15 @@ Vector2 Vector2::RIGHT = Vector2(1.0f, 0.0f);
 
 
 
+/// <summary>
+/// Default Vector2 constructor. Assigns every value to zero.
+/// </summary>
+/// <returns>Constructed Vector2.</returns>
+Vector2::Vector2()
+{
+	vec[0] = 0.0f;
+	vec[1] = 0.0f;
+}
 
 /// <summary>
 /// Standard Vector2 constructor.
@@ -19,10 +28,24 @@ Vector2 Vector2::RIGHT = Vector2(1.0f, 0.0f);
 /// <param name="x">X element of Vector.</param>
 /// <param name="y">Y element of Vector.</param>
 /// <returns>Constructed Vector2.</returns>
-Vector2::Vector2(float x, float y)
+//Vector2::Vector2(float x, float y)
+//{
+//	this->vec[0] = x;
+//	this->vec[1] = y;
+//}
+
+
+/// <summary>
+/// Array Vector2 constructor.
+/// </summary>
+/// <param name="vec">Float array containing vector.</param>
+/// <returns>Constructed Vector2.</returns>
+Vector2::Vector2(float vec[2])
 {
-	this->x = x;
-	this->y = y;
+	for (int i = 0; i < 2; ++i)
+	{
+		this->vec[i] = vec[i];
+	}
 }
 
 /// <summary>
@@ -32,8 +55,10 @@ Vector2::Vector2(float x, float y)
 /// <returns>Constructed Vector2.</returns>
 Vector2::Vector2(const Vector2& vec)
 {
-	this->x = vec.x;
-	this->y = vec.y;
+	for (int i = 0; i < 2; ++i)
+	{
+		this->vec[i] = vec[i];
+	}
 }
 
 /// <summary>
@@ -42,8 +67,8 @@ Vector2::Vector2(const Vector2& vec)
 void Vector2::normalize()
 {
 	float hypotenuse = this->length();
-	this->x /= hypotenuse;
-	this->y /= hypotenuse;
+	this->vec[0] /= hypotenuse;
+	this->vec[1] /= hypotenuse;
 }
 
 /// <summary>
@@ -53,7 +78,7 @@ void Vector2::normalize()
 Vector2 Vector2::normalized()
 {
 	float hypotenuse = this->length();
-	return Vector2(this->x / hypotenuse, this->y / hypotenuse);
+	return Vector2(this->vec[0] / hypotenuse, this->vec[1] / hypotenuse);
 }
 
 /// <summary>
@@ -73,7 +98,7 @@ float Vector2::length()
 float Vector2::squareLength()
 {
 	// Pythagorean theorem without sqrt
-	return x * x + y * y;
+	return vec[0] * vec[0] + vec[1] * vec[1];
 }
 
 /// <summary>
@@ -83,7 +108,7 @@ float Vector2::squareLength()
 /// <returns>Resulting Vector2.</returns>
 Vector2 Vector2::operator+(const Vector2& rhs)
 {
-	return Vector2(this->x + rhs.x, this->y + rhs.y);
+	return Vector2(this->vec[0] + rhs[0], this->vec[1] + rhs[1]);
 }
 
 /// <summary>
@@ -93,7 +118,7 @@ Vector2 Vector2::operator+(const Vector2& rhs)
 /// <returns>Resulting Vector2.</returns>
 Vector2 Vector2::operator-(const Vector2& rhs)
 {
-	return Vector2(this->x - rhs.x, this->y - rhs.y);
+	return Vector2(this->vec[0] - rhs[0], this->vec[1] - rhs[1]);
 }
 
 /// <summary>
@@ -103,7 +128,7 @@ Vector2 Vector2::operator-(const Vector2& rhs)
 /// <returns>Resulting Vector2.</returns>
 Vector2 Vector2::operator*(const Vector2& rhs)
 {
-	return Vector2(this->x * rhs.x, this->y * rhs.y);
+	return Vector2(this->vec[0] * rhs[0], this->vec[1] * rhs[1]);
 }
 
 /// <summary>
@@ -113,7 +138,7 @@ Vector2 Vector2::operator*(const Vector2& rhs)
 /// <returns>Resulting Vector2.</returns>
 Vector2 Vector2::operator/(const Vector2& rhs)
 {
-	return Vector2(this->x / rhs.x, this->y / rhs.y);
+	return Vector2(this->vec[0] / rhs[0], this->vec[1] / rhs[1]);
 }
 
 /// <summary>
@@ -123,7 +148,12 @@ Vector2 Vector2::operator/(const Vector2& rhs)
 /// <returns>Boolean based on element-wise equality.</returns>
 bool Vector2::operator==(const Vector2& rhs)
 {
-	return this->x == rhs.x && this->y == rhs.y;
+	return this->vec[0] == rhs[0] && this->vec[1] == rhs[1];
+}
+
+float Vector2::operator[](int index) const
+{
+	return vec[index];
 }
 
 /// <summary>
@@ -133,7 +163,7 @@ bool Vector2::operator==(const Vector2& rhs)
 Vector2::operator Vector3() const
 {
 	// Assume z value is zero
-	return Vector3(this->x, this->y, 0.0f);
+	return Vector3(this->vec[0], this->vec[1], 0.0f);
 }
 
 /// <summary>
@@ -144,5 +174,5 @@ Vector2::operator Vector3() const
 /// <returns>Resulting scalar, as a float.</returns>
 float Vector2::dot(const Vector2& lhs, const Vector2& rhs)
 {
-	return lhs.x * rhs.x + lhs.y * rhs.y;
+	return lhs[0] * rhs[0] + lhs[1] * rhs[1];
 }

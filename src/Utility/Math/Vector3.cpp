@@ -1,5 +1,7 @@
 #include "Vector3.h"
 #include "Vector2.h"
+#include "Matrix4.h"
+#include "Vector4.h"
 #include <cmath>
 #pragma once
 
@@ -11,6 +13,30 @@ Vector3 Vector3::RIGHT = Vector3(1.0f, 0.0f, 0.0f);
 Vector3 Vector3::FORWARDS = Vector3(0.0f, 0.0f, 1.0f);
 Vector3 Vector3::BACKWARDS = Vector3(0.0f, 0.0f, -1.0f);
 
+/// <summary>
+/// Default Vector3 constructor. Assigns every value to zero.
+/// </summary>
+/// <returns>Constructed Vector3.</returns>
+Vector3::Vector3()
+{
+	for (int i = 0; i < 3; ++i)
+	{
+		vec[i] = 0.0f;
+	}
+}
+
+/// <summary>
+/// Array Vector3 constructor.
+/// </summary>
+/// <param name="vecArray">Float array containing vector.</param>
+/// <returns>Constructed Vector3.</returns>
+Vector3::Vector3(float vecArray[3])
+{
+	for (int i = 0; i < 3; ++i)
+	{
+		vec[i] = vecArray[i];
+	}
+}
 
 /// <summary>
 /// Standard Vector3 constructor.
@@ -19,12 +45,12 @@ Vector3 Vector3::BACKWARDS = Vector3(0.0f, 0.0f, -1.0f);
 /// <param name="y">Y element of Vector.</param>
 /// <param name="z">Z element of Vector.</param>
 /// <returns>Constructed Vector3.</returns>
-Vector3::Vector3(float x, float y, float z)
-{
-	this->x = x;
-	this->y = y;
-	this->z = z;
-}
+//Vector3::Vector3(float x, float y, float z)
+//{
+//	this->vec[0] = x;
+//	this->vec[1] = y;
+//	this->vec[2] = z;
+//}
 
 /// <summary>
 /// Vector3 copy constructor.
@@ -33,9 +59,9 @@ Vector3::Vector3(float x, float y, float z)
 /// <returns>Constructed Vector3.</returns>
 Vector3::Vector3(const Vector3& vec)
 {
-	this->x = vec.x;
-	this->y = vec.y;
-	this->z = vec.z;
+	this->vec[0] = vec[0];
+	this->vec[1] = vec[1];
+	this->vec[2] = vec[2];
 }
 
 /// <summary>
@@ -44,9 +70,9 @@ Vector3::Vector3(const Vector3& vec)
 void Vector3::normalize()
 {
 	float hypotenuse = this->length();
-	this->x /= hypotenuse;
-	this->y /= hypotenuse;
-	this->z /= hypotenuse;
+	this->vec[0] /= hypotenuse;
+	this->vec[1] /= hypotenuse;
+	this->vec[2] /= hypotenuse;
 }
 
 /// <summary>
@@ -56,7 +82,7 @@ void Vector3::normalize()
 Vector3 Vector3::normalized()
 {
 	float hypotenuse = this->length();
-	return Vector3(this->x / hypotenuse, this->y / hypotenuse, this->z / hypotenuse);
+	return Vector3(this->vec[0] / hypotenuse, this->vec[1] / hypotenuse, this->vec[2] / hypotenuse);
 }
 
 /// <summary>
@@ -76,7 +102,7 @@ float Vector3::length()
 float Vector3::squareLength()
 {
 	// Pythagorean theorem without sqrt
-	return x * x + y * y + z * z;
+	return (vec[0] * vec[0]) + (vec[1] * vec[1]) + (vec[2] * vec[2]);
 }
 
 /// <summary>
@@ -86,7 +112,7 @@ float Vector3::squareLength()
 /// <returns>Resulting Vector3.</returns>
 Vector3 Vector3::operator+(const Vector3& rhs)
 {
-	return Vector3(this->x + rhs.x, this->y + rhs.y, this->z + rhs.z);
+	return Vector3(this->vec[0] + rhs[0], this->vec[1] + rhs[1], this->vec[2] + rhs[2]);
 }
 
 /// <summary>
@@ -94,9 +120,9 @@ Vector3 Vector3::operator+(const Vector3& rhs)
 /// </summary>
 /// <param name="rhs">The right hand side Vector3 to be subtracted from this.</param>
 /// <returns>Resulting Vector3.</returns>
-Vector3 Vector3::operator-(const Vector3& rhs)
+Vector3 Vector3::operator-(Vector3& rhs)
 {
-	return Vector3(this->x - rhs.x, this->y - rhs.y, this->z - rhs.z);
+	return Vector3(this->vec[0] - rhs[0], this->vec[1] - rhs[1], this->vec[2] - rhs[2]);
 }
 
 /// <summary>
@@ -104,9 +130,9 @@ Vector3 Vector3::operator-(const Vector3& rhs)
 /// </summary>
 /// <param name="rhs">The right hand side Vector3 to be multiplied with this.</param>
 /// <returns>Resulting Vector3.</returns>
-Vector3 Vector3::operator*(const Vector3& rhs)
+Vector3 Vector3::operator*(Vector3& rhs)
 {
-	return Vector3(this->x * rhs.x, this->y * rhs.y, this->z * rhs.z);
+	return Vector3(this->vec[0] * rhs[0], this->vec[1] * rhs[1], this->vec[2] * rhs[2]);
 }
 
 /// <summary>
@@ -114,9 +140,9 @@ Vector3 Vector3::operator*(const Vector3& rhs)
 /// </summary>
 /// <param name="rhs">The right hand side Vector3 to divide this.</param>
 /// <returns>Resulting Vector3.</returns>
-Vector3 Vector3::operator/(const Vector3& rhs)
+Vector3 Vector3::operator/(Vector3& rhs)
 {
-	return Vector3(this->x / rhs.x, this->y / rhs.y, this->z / rhs.z);
+	return Vector3(this->vec[0] / rhs[0], this->vec[1] / rhs[1], this->vec[2] / rhs[2]);
 }
 
 /// <summary>
@@ -124,19 +150,65 @@ Vector3 Vector3::operator/(const Vector3& rhs)
 /// </summary>
 /// <param name="rhs">The right hand side Vector3 to be compared to this.</param>
 /// <returns>Boolean based on element-wise equality.</returns>
-bool Vector3::operator==(const Vector3& rhs)
+bool Vector3::operator==(Vector3& rhs)
 {
-	return this->x == rhs.x && this->y == rhs.y && this->z == rhs.z;
+	return this->vec[0] == rhs[0] && this->vec[1] == rhs[1] && this->vec[2] == rhs[2];
+}
+
+/// <summary>
+/// [] operator to get vector float elements.
+/// </summary>
+/// <param name="index">Index of float to return.</param>
+/// <returns>Float at index.</returns>
+float& Vector3::operator[](int index)
+{
+	return vec[index];
+}
+
+/// <summary>
+/// [] operator to get vector float elements.
+/// </summary>
+/// <param name="index">Index of float to return.</param>
+/// <returns>Float at index.</returns>
+const float& Vector3::operator[](int index) const
+{
+	return vec[index];
 }
 
 /// <summary>
 /// Explicit cast to Vector2 operator overload. Copies the x and y values, and discards the z value.
 /// </summary>
 /// <returns>Resulting Vector2.</returns>
-Vector3::operator Vector2() const
+Vector3::operator Vector2()
 {
 	// Discard z value
-	return Vector2(this->x, this->y);
+	return Vector2(this->vec[0], this->vec[1]);
+}
+
+/// <summary>
+/// * operator to multiply vector by matrix4.
+/// </summary>
+/// <param name="rhs">Matrix4 to multiply.</param>
+/// <returns>Transformed Vector3.</returns>
+Vector3 Vector3::operator*(Matrix4& rhs)
+{
+	// translate first
+	Vector3 translatedVec = *this + Vector3(rhs.column(3));
+
+	// then rotate and shear and scale
+	Vector3 newVec;
+
+	for (int i = 0; i < 3; ++i)
+	{
+		float sum = 0.0f;
+		for (int j = 0; j < 3; ++j)
+		{
+			sum += rhs[i][j] * vec[j];
+		}
+		newVec[i] = sum;
+	}
+
+	return newVec;
 }
 
 /// <summary>
@@ -145,9 +217,9 @@ Vector3::operator Vector2() const
 /// <param name="lhs">The left hand side Vector3 to be dotted.</param>
 /// <param name="rhs">The right hand side Vector3 to be dotted.</param>
 /// <returns>Resulting scalar, as a float.</returns>
-float Vector3::dot(const Vector3& lhs, const Vector3& rhs)
+float Vector3::dot(Vector3 lhs, Vector3 rhs)
 {
-	return lhs.x * rhs.x + lhs.y * rhs.y + lhs.z * rhs.z;
+	return (lhs[0] * rhs[0]) + (lhs[1] * rhs[1]) + (lhs[2] * rhs[2]);
 }
 
 /// <summary>
@@ -156,9 +228,9 @@ float Vector3::dot(const Vector3& lhs, const Vector3& rhs)
 /// <param name="lhs">The left hand side Vector3 to be crossed.</param>
 /// <param name="rhs">The right hand side Vector3 to be crossed.</param>
 /// <returns>Resulting Vector3.</returns>
-Vector3 Vector3::cross(const Vector3& lhs, const Vector3& rhs)
+Vector3 Vector3::cross(Vector3& lhs, Vector3& rhs)
 {
-	return Vector3(	lhs.y * rhs.z - lhs.z * rhs.y,
-					lhs.z * rhs.x - lhs.x * rhs.z,
-					lhs.x * rhs.y - lhs.y * rhs.x);
+	return Vector3(	lhs[1] * rhs[2] - lhs[2] * rhs[1],
+					lhs[2] * rhs[0] - lhs[0] * rhs[2],
+					lhs[0] * rhs[1] - lhs[1] * rhs[0]);
 }

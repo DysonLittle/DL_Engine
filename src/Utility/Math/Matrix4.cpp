@@ -227,6 +227,8 @@ Matrix4 Matrix4::lookAt(Vector3 eye, Vector3 at, Vector3 up)
 
 Matrix4 Matrix4::project(float angle, float aspect, float near, float far)
 {
+	// this went through a lot of iterations but the code that eventually worked was based off of code found here https://vincent-p.github.io/posts/vulkan_perspective_matrix/
+
 
 	float focal_length = 1.0f / tan(angle * 0.5f);
 

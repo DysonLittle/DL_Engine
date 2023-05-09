@@ -211,6 +211,11 @@ Vector3 Vector3::operator*(Matrix4& rhs)
 	return newVec;
 }
 
+bool Vector3::operator==(const Vector3& rhs) const
+{
+	return this->vec[0] == rhs[0] && this->vec[1] == rhs[1] && this->vec[2] == rhs[2];
+}
+
 /// <summary>
 /// Dot operator. Performs the dot operation on two Vector3s.
 /// </summary>

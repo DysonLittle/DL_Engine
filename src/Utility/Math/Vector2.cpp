@@ -146,7 +146,7 @@ Vector2 Vector2::operator/(const Vector2& rhs)
 /// </summary>
 /// <param name="rhs">The right hand side Vector2 to be compared to this.</param>
 /// <returns>Boolean based on element-wise equality.</returns>
-bool Vector2::operator==(const Vector2& rhs)
+bool Vector2::operator==(const Vector2& rhs) const
 {
 	return this->vec[0] == rhs[0] && this->vec[1] == rhs[1];
 }

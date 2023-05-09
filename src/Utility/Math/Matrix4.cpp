@@ -198,28 +198,30 @@ Matrix4 Matrix4::lookAt(Vector3 eye, Vector3 at, Vector3 up)
 	//from https://stackoverflow.com/questions/349050/calculating-a-lookat-matrix#:~:text=The%20lookat%20matrix%20is%20a,from%20another%20point%20in%20space.
 	//then it didn't work so I tried
 	// https://www.scratchapixel.com/lessons/mathematics-physics-for-computer-graphics/lookat-function/framing-lookat-function.html
+	// and then later that had a bug which I fixed by consulting
+	// https://github.com/Lephar/Engine
 
 	float returnArray[16];
 
-	Vector3 forward = (eye - at).normalized();
+	Vector3 forward = (at - eye).normalized();
 	Vector3 right = (Vector3::cross(forward, up)).normalized();
-	Vector3 newUp = Vector3::cross(right, forward).normalized();
+	Vector3 newUp = Vector3::cross(right, forward);
 
 	returnArray[0] = right.x();
 	returnArray[1] = newUp.x();
-	returnArray[2] = forward.x();
+	returnArray[2] = -forward.x();
 	returnArray[3] = 0.0f;
 	returnArray[4] = right.y();
 	returnArray[5] = newUp.y();
-	returnArray[6] = forward.y();
+	returnArray[6] = -forward.y();
 	returnArray[7] = 0.0f;
 	returnArray[8] = right.z();
 	returnArray[9] = newUp.z();
-	returnArray[10] = forward.z();
+	returnArray[10] = -forward.z();
 	returnArray[11] = 0.0f;
 	returnArray[12] = -Vector3::dot(right, eye);
 	returnArray[13] = -Vector3::dot(newUp, eye);
-	returnArray[14] = -Vector3::dot(forward, eye);
+	returnArray[14] = Vector3::dot(forward, eye);
 	returnArray[15] = 1.0f;
 
 	return Matrix4(returnArray);
@@ -228,14 +230,14 @@ Matrix4 Matrix4::lookAt(Vector3 eye, Vector3 at, Vector3 up)
 Matrix4 Matrix4::project(float angle, float aspect, float near, float far)
 {
 	// this went through a lot of iterations but the code that eventually worked was based off of code found here https://vincent-p.github.io/posts/vulkan_perspective_matrix/
-
+	// edit: I had to change it with code from https://github.com/Lephar/Engine
 
 	float focal_length = 1.0f / tan(angle * 0.5f);
 
 	return Matrix4{
 		focal_length / aspect, 0.0f, 0.0f, 0.0f,
 		0.0f, -focal_length, 0.0f, 0.0f,
-		0.0f, 0.0f, near / (far - near), -1.0f,
-		0.0f, 0.0f, (near * far) / (far - near), 0.0f
+		0.0f, 0.0f, -far / (far - near), -1.0f,
+		0.0f, 0.0f, -(near * far) / (far - near), 0.0f
 	};
 }

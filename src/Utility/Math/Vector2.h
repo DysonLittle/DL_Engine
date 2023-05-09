@@ -1,5 +1,7 @@
 #pragma once
 
+#include <functional>
+
 struct Vector3; // forward declaration for implicit conversion operator overload
 
 struct Vector2
@@ -26,7 +28,7 @@ public:
 	Vector2 operator-(const Vector2& rhs);
 	Vector2 operator*(const Vector2& rhs);
 	Vector2 operator/(const Vector2& rhs);
-	bool operator==(const Vector2& rhs);
+	bool operator==(const Vector2& rhs) const;
 	float operator[](int index) const;
 	operator Vector3() const;
 
@@ -35,4 +37,13 @@ public:
 
 	// static values
 	static Vector2 ZERO, UP, DOWN, LEFT, RIGHT;
+};
+
+template<> struct std::hash<Vector2>
+{
+	size_t operator()(Vector2 const& vector) const
+	{
+		return (std::hash<float>()(vector[0]) ^
+			(std::hash<float>()(vector[1]) << 1));
+	}
 };

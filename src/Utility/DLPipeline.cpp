@@ -25,6 +25,12 @@
 #include "Math/Matrix4.h"
 #include "Math/Pi.h"
 
+#include <ctime>
+#include <cstring>
+
+#include <ft2build.h>
+#include FT_FREETYPE_H
+
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
@@ -269,6 +275,7 @@ private:
     VkDeviceMemory colorImageMemory;
     VkImageView colorImageView;
 
+    long frames_per_second;
 
     // General Init and main loops
 
@@ -310,10 +317,16 @@ private:
     }
 
     void mainLoop() {
+        long elapsed_sec = 0.0f;
         while (!glfwWindowShouldClose(window))
         {
+            long loop_start = clock();
             glfwPollEvents();
             drawFrame();
+            
+            elapsed_sec = (clock() - loop_start) / CLOCKS_PER_SEC;
+            frames_per_second = 1.0f / elapsed_sec;
+            printf("%f\n", (float)elapsed_sec);
         }
 
         vkDeviceWaitIdle(device);

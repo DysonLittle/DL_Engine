@@ -28,11 +28,14 @@
     <Filter Include="Source Files\Shaders">
       <UniqueIdentifier>{713d9aa9-d10d-4a75-89b8-737e0046effa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Utility\Graphics">
+      <UniqueIdentifier>{a25f2362-c175-4db7-85e1-264bee007df3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utility\Graphics">
+      <UniqueIdentifier>{bc5eb4f8-0310-4df6-bc1b-4f2adceb4993}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Utility\main.cpp">
-      <Filter>Source Files\Utility</Filter>
-    </ClCompile>
     <ClCompile Include="src\Utility\Math\Quaternion.cpp">
       <Filter>Source Files\Utility\Math</Filter>
     </ClCompile>
@@ -47,6 +50,15 @@
     </ClCompile>
     <ClCompile Include="src\Utility\Math\Vector4.cpp">
       <Filter>Source Files\Utility\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utility\main.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utility\Graphics\MemoryPool.cpp">
+      <Filter>Source Files\Utility\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utility\Graphics\DLPipeline.cpp">
+      <Filter>Source Files\Utility\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -67,6 +79,21 @@
     </ClInclude>
     <ClInclude Include="src\Utility\Math\Vector4.h">
       <Filter>Header Files\Utility\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utility\Graphics\DLFreeTypeWrapper.h">
+      <Filter>Header Files\Utility\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utility\Graphics\DLPipeline.h">
+      <Filter>Header Files\Utility\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utility\Graphics\Vertex.h">
+      <Filter>Header Files\Utility\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utility\Graphics\Model.h">
+      <Filter>Header Files\Utility\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utility\Graphics\MemoryPool.h">
+      <Filter>Header Files\Utility\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

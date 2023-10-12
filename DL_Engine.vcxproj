@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Utility\Graphics\DLPipeline.cpp" />
+    <ClCompile Include="src\Utility\Graphics\MemoryPool.cpp" />
     <ClCompile Include="src\Utility\main.cpp" />
     <ClCompile Include="src\Utility\Math\Matrix4.cpp" />
     <ClCompile Include="src\Utility\Math\Quaternion.cpp" />
@@ -27,6 +29,11 @@
     <ClCompile Include="src\Utility\Math\Vector4.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Utility\Graphics\DLFreeTypeWrapper.h" />
+    <ClInclude Include="src\Utility\Graphics\DLPipeline.h" />
+    <ClInclude Include="src\Utility\Graphics\MemoryPool.h" />
+    <ClInclude Include="src\Utility\Graphics\Model.h" />
+    <ClInclude Include="src\Utility\Graphics\Vertex.h" />
     <ClInclude Include="src\Utility\Math\Matrix4.h" />
     <ClInclude Include="src\Utility\Math\Pi.h" />
     <ClInclude Include="src\Utility\Math\Quaternion.h" />
@@ -126,7 +133,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\VulkanSDK\1.3.216.0\Include;C:\Program Files %28x86%29\glfw-3.3.7\include;C:\Program Files %28x86%29\Misc Library Util;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files %28x86%29\Misc Library Util\freetype-2.13.1\include;C:\VulkanSDK\1.3.216.0\Include;C:\Program Files %28x86%29\glfw-3.3.7\include;C:\Program Files %28x86%29\Misc Library Util;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -164,7 +171,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\VulkanSDK\1.3.216.0\Include;C:\Program Files %28x86%29\glfw-3.3.7\include;C:\Program Files %28x86%29\Misc Library Util;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Program Files %28x86%29\Misc Library Util\freetype-2.13.1\include;C:\VulkanSDK\1.3.216.0\Include;C:\Program Files %28x86%29\glfw-3.3.7\include;C:\Program Files %28x86%29\Misc Library Util;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
